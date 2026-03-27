@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <span class="logo-icon">&#9634;</span>
+                <h1>Kanban Board</h1>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="search-bar">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" id="searchInput" placeholder="Search cards...">
+            </div>
+            <div class="filter-group">
+                <select id="filterPriority" class="filter-select">
+                    <option value="">All Priorities</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <select id="filterLabel" class="filter-select">
+                    <option value="">All Labels</option>
+                    <option value="red">Red</option>
+                    <option value="orange">Orange</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-ghost" id="statsToggle" title="Statistics">&#9776;</button>
+            <button class="btn btn-ghost" id="themeToggle" title="Toggle theme">&#9789;</button>
+            <button class="btn btn-accent" id="addColumnBtn">+ Column</button>
+        </div>
+    </header>
+
+    <!-- Stats Sidebar -->
+    <aside class="stats-panel" id="statsPanel">
+        <div class="stats-header">
+            <h2>Statistics</h2>
+            <button class="modal-close" id="statsClose">&times;</button>
+        </div>
+        <div class="stats-content" id="statsContent">
+            <!-- Wird per JS gefuellt -->
+        </div>
+    </aside>
+    <div class="stats-overlay" id="statsOverlay"></div>
+
+    <!-- Board -->
+    <main class="board" id="board">
+    </main>
+
+    <!-- Modal: Karte erstellen/bearbeiten -->
+    <div class="modal-overlay" id="cardModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">New Card</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <form id="cardForm">
+                <input type="hidden" id="cardId">
+                <input type="hidden" id="cardColumnId">
+
+                <div class="form-group">
+                    <label for="cardTitleInput">Title</label>
+                    <input type="text" id="cardTitleInput" placeholder="What needs to be done?" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cardDescription">Description</label>
+                    <textarea id="cardDescription" rows="3" placeholder="Add details..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cardDueDate">Due Date</label>
+                        <input type="date" id="cardDueDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="cardPriority">Priority</label>
+                        <select id="cardPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Label</label>
+                    <div class="label-picker" id="labelPicker">
+                        <button type="button" class="label-dot" data-label="red" style="background:#FF4444"></button>
+                        <button type="button" class="label-dot" data-label="orange" style="background:#FFA500"></button>
+                        <button type="button" class="label-dot" data-label="green" style="background:#00D26A"></button>
+                        <button type="button" class="label-dot" data-label="blue" style="background:#00BFFF"></button>
+                        <button type="button" class="label-dot" data-label="purple" style="background:#C084FC"></button>
+                        <button type="button" class="label-dot" data-label="" style="background:#333" title="No label"></button>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" id="deleteCardBtn" style="display:none">Delete</button>
+                    <div class="form-actions-right">
+                        <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn btn-accent">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/board.js"></script>
+</body>
+</html>
